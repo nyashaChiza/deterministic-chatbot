@@ -8,5 +8,5 @@ app = FastAPI(title='Remittance Chatbot', description='Remittance Chatbot Backen
 
 @app.get("/")
 def read_root():
-    return {"Hello": "World"}
+    return {"description": "Remittance Chatbot"}
 
