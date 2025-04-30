@@ -1,0 +1,6 @@
+TWILIO_ACCOUNT_SID = 'your_account_sid'
+TWILIO_AUTH_TOKEN = 'your_auth_token'
+TWILIO_PHONE_NUMBER = 'whatsapp:+14155238886'  # Your Twilio WhatsApp number
+USE_TWILIO = 0
+BASE_URL = 'https://jcxq1mw7-8000.asse.devtunnels.ms/'
+RESET_PHRASE = 'reset'
