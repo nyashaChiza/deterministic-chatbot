@@ -9,7 +9,7 @@ A conversational assistant designed to streamline remittance-related inquiries, 
 - **State Management**: Maintains conversational context for seamless interactions.
 - **Extensible Intent Handlers**: Easily add or modify functionalities by updating intent actions.
 - **Twilio Integration**: Supports WhatsApp messaging via Twilio API.
-- **Error Handling**: Gracefully manages unexpected inputs and system errors. ([GitHub - Oguama77/chatbot-for-remittance](https://github.com/Oguama77/chatbot-for-remittance?utm_source=chatgpt.com))
+- **Error Handling**: Gracefully manages unexpected inputs and system errors. 
 
 ## Folder Structure
 
