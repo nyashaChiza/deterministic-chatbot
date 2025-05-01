@@ -4,3 +4,5 @@ TWILIO_PHONE_NUMBER = 'whatsapp:+14155238886'  # Your Twilio WhatsApp number
 USE_TWILIO = 0
 BASE_URL = 'https://jcxq1mw7-8000.asse.devtunnels.ms/'
 RESET_PHRASE = 'reset'
+STATE_BACKEND='memory'  # or sqlite 
+DATABASE_URL='sqlite:///./state.db'
