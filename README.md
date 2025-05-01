@@ -26,12 +26,12 @@ remittance-chatbot/
 │   │   ├── state.py          # State management utilities
 │   │   ├── model.py          # Model file for the table schema
 │   │   └── twilio.py         # Twilio client setup
-│   └── main.py               # FastAPI application entry point
 ├── tests/                    # Unit and integration tests
 │   └── test_main.py
 ├── .gitignore
 ├── LICENSE
 ├── README.md
+├── main.py                   # FastAPI application entry point
 ├── env_example               # Sample environment variables file
 ├── requirements.txt          # Python dependencies
 └── main.py                   # Application runner
