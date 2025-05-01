@@ -1,7 +1,7 @@
 
 # Deterministic Chatbot
 
-An AI-powered conversational assistant designed to streamline remittance-related inquiries, providing users with accurate and timely information through natural language interactions. ([DEVELOPMENT OF AN AI-POWERED REMITTANCE CHATBOT | by HamoyeHQ | Medium](https://hamoyehq.medium.com/development-of-an-ai-powered-remittance-chatbot-78a303118026?utm_source=chatgpt.com))
+A conversational assistant designed to streamline remittance-related inquiries, providing users with accurate and timely information through natural language interactions.
 
 ## Features
 
