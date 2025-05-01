@@ -5,4 +5,4 @@ USE_TWILIO = 0
 BASE_URL = 'https://jcxq1mw7-8000.asse.devtunnels.ms/'
 RESET_PHRASE = 'reset'
 STATE_BACKEND='memory'  # or sqlite 
-DATABASE_URL='sqlite:///./state.db'
+DATABASE_URL='sqlite:///./db.sqlite3'

@@ -7,7 +7,7 @@ from sqlalchemy.orm import sessionmaker
 from abc import ABC, abstractmethod
 
 
-DATABASE_URL = config("DATABASE_URL", default="sqlite:///./chat_state.db")
+DATABASE_URL = config("DATABASE_URL", default="sqlite:///./db.sqlite3")
 engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
