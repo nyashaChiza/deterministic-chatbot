@@ -18,13 +18,6 @@ class Chat:
 
         patterns = {
             "greeting": r"\b(hello|hi|hie|hey|good morning|good afternoon|good evening|greetings|howdy)\b",
-            "registration": r"\b(register|sign up|join|create account|new user|signup|1)\b",
-            "location": r"\b(where|location|branch|directions|find office|nearest|locate|offices|address|2)\b",
-            "receipt": r"\b(receipt|confirmation|proof of payment|transaction details|payment proof)\b",
-            "complaint": r"\b(complaint|issue|problem|report|bad experience|feedback|issues|4)\b",
-            "service_list": r"\b(services|offerings|help|assistance|service|offer|available services|what services|3)\b",
-            "faq": r"\b(faq|question|help me with|how do i|can i|what is|why|when|where|who|how)\b",
-            "promotion": r"\b(promotions|offers|special rates|exchange rate|discounts|deals)\b",
             "good_bye": r"\b(thank you|thanks|bye|goodbye|i'm good|i'm all set|got it)\b",
         }
 
