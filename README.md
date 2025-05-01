@@ -1,7 +1,7 @@
 
 # Deterministic Chatbot
 
-A conversational assistant designed to streamline remittance-related inquiries, providing users with accurate and timely information through natural language interactions.
+A conversational assistant designed to streamline inquiries, providing users with accurate and timely information through natural language interactions.
 
 ## Features
 
