@@ -38,7 +38,7 @@ jobs:
       run: |
         pytest
 
-        env:
+      env:
           TWILIO_ACCOUNT_SID: "y7^zo53cwo$0!4(7ife!=%$46wk=6*)g$rgivz41uncm%z@)"
           TWILIO_AUTH_TOKEN: "ljvvuctxrcyubibibyvutvu"
           TWILIO_PHONE_NUMBER: "+120255501006"
