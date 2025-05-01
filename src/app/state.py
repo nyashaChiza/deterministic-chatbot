@@ -1,5 +1,6 @@
 import json
 from sqlalchemy.orm import Session
+from loguru import logger
 from decouple import config
 from .model import UserState, Base
 from sqlalchemy import create_engine
@@ -23,6 +24,8 @@ class BaseState(ABC):
     def clear_state(self, id: str) -> None: ...
     @abstractmethod
     def clear_all(self) -> None: ...
+    @abstractmethod
+    def get_all(self) -> None: ...
 
 
 class SQLAlchemyState(BaseState):
@@ -35,6 +38,7 @@ class SQLAlchemyState(BaseState):
 
     def set_state(self, id: str, state: dict) -> None:
         state = json.dumps(state)
+        logger.warning(f"Setting state for {id}: {state}")
         record = self.db.query(UserState).filter(UserState.id == id).first()
         if record:
             record.state = state
@@ -50,6 +54,10 @@ class SQLAlchemyState(BaseState):
     def clear_all(self) -> None:
         self.db.query(UserState).delete()
         self.db.commit()
+    
+    def get_all(self) -> dict:
+        records = self.db.query(UserState).all()
+        return {record.id: json.loads(record.state) for record in records if record.state}
 
 
 class MemoryState(BaseState):
@@ -67,6 +75,9 @@ class MemoryState(BaseState):
 
     def clear_all(self) -> None:
         self._state = {}
+    
+    def get_all(self) -> dict:
+        return self._state
 
 
 
@@ -77,6 +88,7 @@ def get_state_instance() -> BaseState:
     global _state_instance
     if _state_instance is None:
         backend = config("STATE_BACKEND", default="memory").lower()
+        logger.info(f"Using {backend} state backend")
         if backend == "sqlite":
             _state_instance = SQLAlchemyState()
         else:

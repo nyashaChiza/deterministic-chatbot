@@ -4,7 +4,7 @@ from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 
 class UserState(Base):
-    __tablename__ = "   states"
+    __tablename__ = "UserState"
 
     id = Column(String, primary_key=True, index=True)
     state = Column(String)
