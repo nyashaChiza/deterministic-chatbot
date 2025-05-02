@@ -50,8 +50,8 @@ remittance-chatbot/
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/nyashaChiza/remittance-chatbot.git
-   cd remittance-chatbot
+   git clone https://github.com/nyashaChiza/deterministic-chatbot.git
+   cd deterministic-chatbot
    ```
 
 
