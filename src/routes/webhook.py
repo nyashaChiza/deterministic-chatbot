@@ -44,7 +44,7 @@ async def webhook(request: Request):
                 intent = "unknown"
 
         # Step 3: Get handler
-        handler = chatbot.intent_actions.get(intent, chatbot.intent_actions["unknown"])
+        handler = chatbot.intent_actions.get(intent, "unknown")
 
         # Step 4: Generate response
         response = handler({**data, "intent": intent})
