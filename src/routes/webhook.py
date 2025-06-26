@@ -16,24 +16,6 @@ RESET_PHRASE = config('RESET_PHRASE', default='reset').lower()
 # Twilio client (optional)
 twilio_client = setup_twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_PHONE_NUMBER)
 
-from fastapi import APIRouter, Request
-from loguru import logger
-from decouple import config
-from src.app import setup_twilio, get_chatbot_instance
-
-router = APIRouter(prefix="/webhook", tags=["Webhook"])
-chatbot = get_chatbot_instance()
-
-# Config
-USE_TWILIO = config('USE_TWILIO', cast=bool)
-TWILIO_ACCOUNT_SID = config('TWILIO_ACCOUNT_SID', default='default')
-TWILIO_AUTH_TOKEN = config('TWILIO_AUTH_TOKEN', default='default')
-TWILIO_PHONE_NUMBER = config('TWILIO_PHONE_NUMBER', default='default')
-RESET_PHRASE = config('RESET_PHRASE', default='reset').lower()
-
-# Twilio client (optional)
-twilio_client = setup_twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_PHONE_NUMBER)
-
 @router.post("/")
 async def webhook(request: Request):
     try:
