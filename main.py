@@ -11,4 +11,4 @@ app.include_router(callback_router)
 
 @app.get("/", tags=["Root"])
 def root():
-    return {"message": "Welcome to the Remittance Chatbot API"}
+    return {"message": "Welcome to the Deterministic-Chatbot API"}
