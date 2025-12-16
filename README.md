@@ -15,7 +15,7 @@ A conversational assistant designed to streamline inquiries, providing users wit
 
 
 ```bash
-remittance-chatbot/
+Deterministic-chatbot/
 ├── .github/workflows/        # GitHub Actions workflows for CI/CD
 ├── .vscode/                  # VSCode-specific settings
 ├── src/                      # Core application source code
