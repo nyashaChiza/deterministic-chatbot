@@ -34,7 +34,6 @@ remittance-chatbot/
 ├── main.py                   # FastAPI application entry point
 ├── env_example               # Sample environment variables file
 ├── requirements.txt          # Python dependencies
-└── main.py                   # Application runner
 ```
 
 
