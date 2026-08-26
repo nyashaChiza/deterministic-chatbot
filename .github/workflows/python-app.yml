@@ -26,24 +26,26 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install flake8 pytest
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        pip install -r requirements-dev.txt
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+        # style/complexity violations now fail the build too
+        flake8 . --count --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
         pytest
 
       env:
-          TWILIO_ACCOUNT_SID: "y7^zo53cwo$0!4(7ife!=%$46wk=6*)g$rgivz41uncm%z@)"
-          TWILIO_AUTH_TOKEN: "ljvvuctxrcyubibibyvutvu"
-          TWILIO_PHONE_NUMBER: "+120255501006"
+          # Real Twilio credentials, if any, are read from repo secrets. The
+          # fallback values are obvious placeholders (USE_TWILIO=0 means they
+          # are never used to call the real Twilio API in CI).
+          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID || 'test_account_sid' }}
+          TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN || 'test_auth_token' }}
+          TWILIO_PHONE_NUMBER: ${{ secrets.TWILIO_PHONE_NUMBER || '+15550000000' }}
           USE_TWILIO: 0
-          BASE_URL: 'https://jcxq1mw7-8000.asse.devtunnels.ms/'
+          BASE_URL: 'http://localhost:8000'
           RESET_PHRASE: 'reset'
-          STATE_BACKEND: 'memory' 
+          STATE_BACKEND: 'memory'
           DATABASE_URL: 'sqlite:///./state.db'
