@@ -3,6 +3,7 @@ from loguru import logger
 
 router = APIRouter(prefix="/status-callback", tags=["Status Callback"])
 
+
 @router.post("/")
 async def status_callback(request: Request):
     data = await request.form()

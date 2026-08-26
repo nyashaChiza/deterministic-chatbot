@@ -3,7 +3,6 @@ from twilio.base.exceptions import TwilioRestException
 from twilio.rest import Client
 
 
-
 class TwilioService:
     def __init__(self, account_sid: str, auth_token: str, from_number: str):
         """

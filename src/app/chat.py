@@ -1,8 +1,8 @@
 from fastapi import HTTPException
-from loguru import logger
 from src.app.intent_actions import INTENT_ACTIONS
 from src.app.state import get_state_instance
 import re
+
 
 class Chat:
     def __init__(self, state=None):
@@ -26,9 +26,8 @@ class Chat:
                 return intent
 
         return "unknown"
-    
 
-    def process_prompt(self,data: dict) -> dict:
+    def process_prompt(self, data: dict) -> dict:
         try:
             platform = data.get("Platform", "whatsapp")
             message = data.get("Body", "").strip().lower()
@@ -48,6 +47,7 @@ class Chat:
 
 _chat_instance = None  # Private variable to hold the single instance of Chat
 
+
 def get_chatbot_instance() -> Chat:
     """
     Factory function to return a singleton instance of the Chat class.
@@ -59,4 +59,3 @@ def get_chatbot_instance() -> Chat:
         state = get_state_instance()
         _chat_instance = Chat(state=state)
     return _chat_instance
-

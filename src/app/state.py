@@ -1,5 +1,4 @@
 import json
-from sqlalchemy.orm import Session
 from loguru import logger
 from decouple import config
 from .model import UserState, Base
@@ -54,7 +53,7 @@ class SQLAlchemyState(BaseState):
     def clear_all(self) -> None:
         self.db.query(UserState).delete()
         self.db.commit()
-    
+
     def get_all(self) -> dict:
         records = self.db.query(UserState).all()
         return {record.id: json.loads(record.state) for record in records if record.state}
@@ -75,14 +74,14 @@ class MemoryState(BaseState):
 
     def clear_all(self) -> None:
         self._state = {}
-    
+
     def get_all(self) -> dict:
         return self._state
 
 
-
 # Singleton logic
 _state_instance = None
+
 
 def get_state_instance() -> BaseState:
     global _state_instance

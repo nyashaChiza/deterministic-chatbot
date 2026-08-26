@@ -1,7 +1,8 @@
-from fastapi import APIRouter, Request, HTTPException
+from fastapi import APIRouter, Request
 from loguru import logger
 from decouple import config
 from src.app import setup_twilio, get_chatbot_instance
+
 
 router = APIRouter(prefix="/webhook", tags=["Webhook"])
 chatbot = get_chatbot_instance()
@@ -16,6 +17,7 @@ RESET_PHRASE = config('RESET_PHRASE', default='reset').lower()
 # Twilio client (optional)
 twilio_client = setup_twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_PHONE_NUMBER)
 
+
 @router.post("/")
 async def webhook(request: Request):
     try:
@@ -24,7 +26,6 @@ async def webhook(request: Request):
 
         sender = data["sender"]
         message = data["message"]
-        current_state = chatbot.state.get_state(sender)
 
         logger.info(f"[{sender}] initial state: {chatbot.state.get_all()}")
 
@@ -57,7 +58,7 @@ async def webhook(request: Request):
 
         return response
 
-    except Exception as e:
+    except Exception:
         logger.exception("Webhook processing error")
 
         fallback_response = {
@@ -70,4 +71,3 @@ async def webhook(request: Request):
                 twilio_client.send_message(sender, fallback_response["message"])
 
         return fallback_response
-
