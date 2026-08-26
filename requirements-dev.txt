@@ -1,0 +1,6 @@
+# Dev/test-only dependencies, on top of the pinned runtime set.
+# pytest, pytest-asyncio and httpx (needed by fastapi.testclient.TestClient)
+# are already pinned in requirements.txt; this file adds tooling that is
+# only needed for local development and CI, not for running the app.
+-r requirements.txt
+flake8==7.3.0

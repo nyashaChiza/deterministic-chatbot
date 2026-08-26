@@ -1,0 +1,7 @@
+fastapi
+uvicorn[standard]
+loguru
+twilio
+sqlalchemy
+python-decouple
+python-multipart
