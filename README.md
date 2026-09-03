@@ -11,6 +11,8 @@ A conversational assistant designed to streamline inquiries, providing users wit
 - **Twilio Integration**: Supports WhatsApp messaging via Twilio API.
 - **Error Handling**: Gracefully manages unexpected inputs and system errors.
 
+See [CHANGELOG.md](CHANGELOG.md) for release history.
+
 ## Folder Structure
 
 
@@ -152,19 +154,24 @@ CI runs this on every push/PR and fails the build on style or complexity violati
 
 ## Dependency updates
 
-`requirements.txt` and `requirements-dev.txt` are the pinned, installable lockfiles. `requirements.in` and `requirements-dev.in` list the direct dependencies they were compiled from (via [pip-tools](https://pypi.org/project/pip-tools/)):
+`requirements.txt` and `requirements-dev.txt` are the pinned, hash-locked lockfiles enforced by CI - `pip-audit` scans `requirements.txt`, and CI installs with `pip install -r requirements-dev.txt --require-hashes`, so a fresh install is byte-identical or it fails. `requirements.in` and `requirements-dev.in` list the direct dependencies they were compiled from (via [pip-tools](https://pypi.org/project/pip-tools/)):
 
 ```bash
 pip install pip-tools
-pip-compile requirements.in
-pip-compile requirements-dev.in
+pip-compile --generate-hashes requirements.in
+pip-compile --generate-hashes requirements-dev.in
 ```
 
-[Dependabot](.github/dependabot.yml) opens a weekly PR for outdated pip and GitHub Actions dependencies.
+[Dependabot](.github/dependabot.yml) opens a weekly PR for outdated pip and GitHub Actions dependencies. CI also runs [`pip-audit`](https://pypi.org/project/pip-audit/) against `requirements.txt` on every push/PR:
+
+```bash
+pip install pip-audit
+pip-audit -r requirements.txt --desc
+```
 
 ## Contributing
 
-Contributions are welcome! Please fork the repository and submit a pull request for any enhancements or bug fixes.
+See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
