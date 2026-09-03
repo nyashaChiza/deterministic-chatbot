@@ -1,3 +1,5 @@
+from src import logging_config  # noqa: F401 - configures loguru on import, before routers log anything
+
 from fastapi import FastAPI
 from src.routes import webhook_router, callback_router, health_router
 

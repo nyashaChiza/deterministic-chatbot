@@ -108,8 +108,19 @@ The application will be accessible at `http://127.0.0.1:8000`.
 ### Running with Docker
 
 ```bash
+docker compose up
+```
+
+This builds the image, serves the app at `localhost:8000`, reads config
+from `.env`, and persists `db.sqlite3` on the host (only relevant if
+`STATE_BACKEND=sqlite`; the default in-memory backend has nothing to
+persist).
+
+To run the container directly instead:
+
+```bash
 docker build -t deterministic-chatbot .
-docker run --env-file .env -p 8000:8000 deterministic-chatbot
+docker run --env-file .env -p 8000:8000 -v $(pwd)/db.sqlite3:/app/db.sqlite3 deterministic-chatbot
 ```
 
 ## Usage

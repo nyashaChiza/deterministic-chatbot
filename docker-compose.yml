@@ -1,0 +1,12 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      # Matches DATABASE_URL's default (sqlite:///./db.sqlite3, relative to
+      # /app) - if you override DATABASE_URL to a different path, update
+      # this mount to match, or state won't persist across restarts.
+      - ./db.sqlite3:/app/db.sqlite3
