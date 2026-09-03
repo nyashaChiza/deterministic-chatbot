@@ -4,4 +4,8 @@ loguru
 twilio
 sqlalchemy
 python-decouple
-python-multipart
+python-multipart>=0.0.32
+# Not direct dependencies - pinned as floors because pip-audit flagged
+# CVEs in the versions twilio/httpx/fastapi's own resolution pulled in.
+requests>=2.34.2
+urllib3>=2.7.0
