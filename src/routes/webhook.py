@@ -47,8 +47,12 @@ async def webhook(request: Request):
             else:
                 intent = "unknown"
 
-        # Step 3: Get handler
-        handler = chatbot.intent_actions.get(intent, "unknown")
+        # Step 3: Get handler ("unknown" is always a valid key in
+        # intent_actions, so this never actually falls back - but the
+        # fallback itself must be a handler, not the string "unknown",
+        # or a future change to intent_actions could turn this into a
+        # "str object is not callable" crash)
+        handler = chatbot.intent_actions.get(intent, chatbot.intent_actions["unknown"])
 
         # Step 4: Generate response
         response = handler({**data, "intent": intent})
@@ -70,7 +74,7 @@ async def webhook(request: Request):
 
         if USE_TWILIO and form_data is not None:
             sender = form_data.get("From")
-            if sender:
+            if isinstance(sender, str):
                 twilio_client.send_message(sender, fallback_response["message"])
 
         return fallback_response

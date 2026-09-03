@@ -1,6 +1,7 @@
 from fastapi import HTTPException
 from src.app.intent_actions import INTENT_ACTIONS
 from src.app.state import get_state_instance
+from typing import Mapping
 import re
 
 
@@ -27,7 +28,7 @@ class Chat:
 
         return "unknown"
 
-    def process_prompt(self, data: dict) -> dict:
+    def process_prompt(self, data: Mapping) -> dict:
         try:
             platform = data.get("Platform", "whatsapp")
             message = data.get("Body", "").strip().lower()

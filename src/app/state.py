@@ -5,6 +5,7 @@ from .model import UserState, Base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from abc import ABC, abstractmethod
+from typing import Optional
 
 
 DATABASE_URL = config("DATABASE_URL", default="sqlite:///./db.sqlite3")
@@ -24,7 +25,7 @@ class BaseState(ABC):
     @abstractmethod
     def clear_all(self) -> None: ...
     @abstractmethod
-    def get_all(self) -> None: ...
+    def get_all(self) -> dict: ...
 
 
 class SQLAlchemyState(BaseState):
@@ -36,13 +37,13 @@ class SQLAlchemyState(BaseState):
         return json.loads(record.state) if record else None
 
     def set_state(self, id: str, state: dict) -> None:
-        state = json.dumps(state)
-        logger.debug("Setting state for {}: {}", id, state)
+        state_json = json.dumps(state)
+        logger.debug("Setting state for {}: {}", id, state_json)
         record = self.db.query(UserState).filter(UserState.id == id).first()
         if record:
-            record.state = state
+            record.state = state_json
         else:
-            record = UserState(id=id, state=state)
+            record = UserState(id=id, state=state_json)
             self.db.add(record)
         self.db.commit()
 
@@ -80,7 +81,7 @@ class MemoryState(BaseState):
 
 
 # Singleton logic
-_state_instance = None
+_state_instance: Optional[BaseState] = None
 
 
 def get_state_instance() -> BaseState:

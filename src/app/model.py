@@ -1,11 +1,12 @@
-from sqlalchemy import Column, String
-from sqlalchemy.orm import declarative_base
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
-Base = declarative_base()
+
+class Base(DeclarativeBase):
+    pass
 
 
 class UserState(Base):
     __tablename__ = "UserState"
 
-    id = Column(String, primary_key=True, index=True)
-    state = Column(String)
+    id: Mapped[str] = mapped_column(primary_key=True, index=True)
+    state: Mapped[str] = mapped_column()
