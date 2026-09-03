@@ -75,8 +75,12 @@ class TwilioService:
         except TwilioRestException as e:
             # Handle Twilio-specific exceptions
             error_message = f"Twilio error: {e.msg}"
-            # Optionally log the error for debugging or monitoring purposes
-            logger.critical(f"from:{self.from_number} to:{to_} body:{body} media_url:{media_url}")
+            # Debug-level and without the message body: this previously
+            # logged the full message text at .critical, which both leaks
+            # user-typed content into logs and (at critical severity) would
+            # spam any alerting hooked up to that log level for an ordinary
+            # delivery failure.
+            logger.debug("Twilio media send failed: to={} media_url={}", to_, media_url)
             logger.error(error_message)
             return {"error": error_message}
         except Exception as e:

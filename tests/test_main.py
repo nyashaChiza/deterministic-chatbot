@@ -1,2 +1,12 @@
+from fastapi.testclient import TestClient
+
+from main import app
+
+client = TestClient(app)
+
+
 def test_read_root():
-    assert 1 + 1 == 2
+    response = client.get("/")
+
+    assert response.status_code == 200
+    assert response.json() == {"message": "Welcome to the Deterministic-Chatbot API"}

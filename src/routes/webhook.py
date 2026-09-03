@@ -20,6 +20,9 @@ twilio_client = setup_twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_PHONE
 
 @router.post("/")
 async def webhook(request: Request):
+    # Assigned before the try so the except block can safely reference it
+    # even if awaiting the request body itself is what raised.
+    form_data = None
     try:
         form_data = await request.form()
         data = chatbot.process_prompt(form_data)
@@ -27,7 +30,7 @@ async def webhook(request: Request):
         sender = data["sender"]
         message = data["message"]
 
-        logger.info(f"[{sender}] initial state: {chatbot.state.get_all()}")
+        logger.info("[{}] initial state: {}", sender, chatbot.state.get_state(sender))
 
         # Step 1: Handle reset
         if message == RESET_PHRASE:
@@ -36,7 +39,7 @@ async def webhook(request: Request):
         else:
             # Step 2: Detect intent from current message
             detected_intent = chatbot.get_intent(message)
-            logger.critical({**data, "intent": detected_intent})
+            logger.debug({**data, "intent": detected_intent})
 
             if detected_intent in chatbot.intent_actions:
                 intent = detected_intent
@@ -54,7 +57,7 @@ async def webhook(request: Request):
         if USE_TWILIO and "message" in response:
             twilio_client.send_message(sender, response["message"])
 
-        logger.info(f"[{sender}] final state: {chatbot.state.get_all()}")
+        logger.info("[{}] final state: {}", sender, chatbot.state.get_state(sender))
 
         return response
 
@@ -65,7 +68,7 @@ async def webhook(request: Request):
             "message": "Sorry, something went wrong on our end. Please try again later."
         }
 
-        if USE_TWILIO:
+        if USE_TWILIO and form_data is not None:
             sender = form_data.get("From")
             if sender:
                 twilio_client.send_message(sender, fallback_response["message"])

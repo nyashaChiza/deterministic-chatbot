@@ -1,3 +1,5 @@
+from unittest.mock import AsyncMock, patch
+
 from fastapi.testclient import TestClient
 
 from main import app
@@ -45,6 +47,20 @@ def test_webhook_unknown_intent():
 
 def test_webhook_missing_body_returns_fallback_message():
     response = client.post("/webhook/", data={"From": "whatsapp:+10000000005"})
+    assert response.status_code == 200
+    assert response.json() == {
+        "message": "Sorry, something went wrong on our end. Please try again later."
+    }
+
+
+def test_webhook_form_parsing_failure_returns_fallback_without_crashing():
+    # Regression test: the except block used to reference `form_data` even
+    # though it was only ever assigned *inside* the try - if awaiting
+    # request.form() itself is what raised, that branch raised a fresh
+    # NameError instead of returning the fallback response.
+    with patch("starlette.requests.Request.form", new=AsyncMock(side_effect=Exception("boom"))):
+        response = client.post("/webhook/", data={"From": "whatsapp:+10000000006", "Body": "hi"})
+
     assert response.status_code == 200
     assert response.json() == {
         "message": "Sorry, something went wrong on our end. Please try again later."

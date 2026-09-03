@@ -37,7 +37,7 @@ class SQLAlchemyState(BaseState):
 
     def set_state(self, id: str, state: dict) -> None:
         state = json.dumps(state)
-        logger.warning(f"Setting state for {id}: {state}")
+        logger.debug("Setting state for {}: {}", id, state)
         record = self.db.query(UserState).filter(UserState.id == id).first()
         if record:
             record.state = state
@@ -87,7 +87,7 @@ def get_state_instance() -> BaseState:
     global _state_instance
     if _state_instance is None:
         backend = config("STATE_BACKEND", default="memory").lower()
-        logger.info(f"Using {backend} state backend")
+        logger.info("Using {} state backend", backend)
         if backend == "sqlite":
             _state_instance = SQLAlchemyState()
         else:

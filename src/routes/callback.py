@@ -7,5 +7,5 @@ router = APIRouter(prefix="/status-callback", tags=["Status Callback"])
 @router.post("/")
 async def status_callback(request: Request):
     data = await request.form()
-    logger.info(f"Status Update: {data}")
+    logger.info("Status Update: {}", data)
     return {"status": "received"}
