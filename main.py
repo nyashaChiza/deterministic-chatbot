@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from src.routes import webhook_router, callback_router
+from src.routes import webhook_router, callback_router, health_router
 
 app = FastAPI(title='Deterministic-Chatbot', description='A deterministic-chatbot Backend', version='1.0.0')
 
@@ -7,6 +7,7 @@ app = FastAPI(title='Deterministic-Chatbot', description='A deterministic-chatbo
 # Register routers
 app.include_router(webhook_router)
 app.include_router(callback_router)
+app.include_router(health_router)
 
 
 @app.get("/", tags=["Root"])
